@@ -13,8 +13,8 @@ include __DIR__ . '/views/layouts/header.php';
 <?php if (!$genieacsConfigured): ?>
     <div class="alert alert-warning">
         <i class="bi bi-exclamation-triangle"></i>
-        GenieACS belum dikonfigurasi. Silakan konfigurasi terlebih dahulu di
-        <a href="/configuration.php">halaman Configuration</a>.
+        GenieACS is not yet configured. Please configure it first on the
+        <a href="/configuration.php">Configuration page</a>.
     </div>
 <?php else: ?>
     <div class="card">

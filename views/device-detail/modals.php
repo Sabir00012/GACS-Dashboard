@@ -4,22 +4,22 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
-                    <i class="bi bi-lightning-charge"></i> Konfirmasi Summon Device
+                    <i class="bi bi-lightning-charge"></i> Confirm Summon Device
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body text-center py-4">
                 <i class="bi bi-exclamation-triangle" style="font-size: 3rem; color: var(--warning-color);"></i>
                 <h5 class="mt-3">Summon Device?</h5>
-                <p class="text-muted mb-0">Apakah Anda yakin ingin melakukan connection request ke device ini?</p>
+                <p class="text-muted mb-0">Are you sure you want to make a connection request to this device?</p>
                 <p class="text-muted mb-0"><small>Device ID: <strong id="summon-device-id"></strong></small></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    <i class="bi bi-x-lg"></i> Batal
+                    <i class="bi bi-x-lg"></i> Cancel
                 </button>
                 <button type="button" class="btn btn-primary" onclick="confirmSummon()">
-                    <i class="bi bi-lightning-charge"></i> Ya, Summon
+                    <i class="bi bi-lightning-charge"></i> Yes, Summon
                 </button>
             </div>
         </div>
@@ -39,7 +39,7 @@
             <div class="modal-body">
                 <div class="alert alert-info">
                     <i class="bi bi-info-circle"></i>
-                    <strong>Info:</strong> Perubahan akan dikirim ke ONU melalui GenieACS. Device mungkin perlu reboot untuk menerapkan konfigurasi baru.
+                    <strong>Info:</strong> Changes will be sent to the ONU via GenieACS. Device may need reboot to apply new configuration.
                 </div>
                 <form id="editWiFiForm">
                     <input type="hidden" id="edit-device-id" name="device_id">
@@ -51,7 +51,7 @@
                         <input type="text" class="form-control" id="edit-wifi-ssid" name="wifi_ssid"
                                required minlength="1" maxlength="32"
                                placeholder="Enter WiFi SSID (1-32 characters)">
-                        <div class="form-text">SSID harus antara 1-32 karakter</div>
+                        <div class="form-text">SSID must be between 1-32 characters</div>
                     </div>
 
                     <div class="mb-3">
@@ -64,7 +64,7 @@
                             <option value="WPA2PSKWPAPSK">WPA/WPA2-PSK Mixed</option>
                             <option value="None">Open (No Security)</option>
                         </select>
-                        <div class="form-text">Pilih mode keamanan WiFi</div>
+                        <div class="form-text">Select WiFi security mode</div>
                     </div>
 
                     <div class="mb-3" id="password-field-group">
@@ -79,7 +79,7 @@
                                 <i id="edit-toggle-icon" class="bi bi-eye"></i>
                             </button>
                         </div>
-                        <div class="form-text">Password harus antara 8-63 karakter untuk WPA/WPA2</div>
+                        <div class="form-text">Password must be between 8-63 characters for WPA/WPA2</div>
                     </div>
 
                     <div class="mb-3">
@@ -92,13 +92,13 @@
                             <option value="3">WLAN 3</option>
                             <option value="4">WLAN 4</option>
                         </select>
-                        <div class="form-text">Pilih interface WLAN yang ingin diubah</div>
+                        <div class="form-text">Select the WLAN interface to modify</div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    <i class="bi bi-x-lg"></i> Batal
+                    <i class="bi bi-x-lg"></i> Cancel
                 </button>
                 <button type="button" class="btn btn-primary" onclick="confirmUpdateWiFi()">
                     <i class="bi bi-check-lg"></i> Update WiFi
@@ -458,7 +458,7 @@
                         <input type="text" class="form-control" id="addTagName" placeholder="Enter tag name" required>
                     </div>
                     <div class="alert alert-info mb-0">
-                        <i class="bi bi-info-circle"></i> Tag akan ditambahkan ke device ini
+                        <i class="bi bi-info-circle"></i> Tag will be added to this device
                     </div>
                 </form>
             </div>
@@ -489,7 +489,7 @@
                 </div>
                 <div id="noTagsMessage" style="display: none;">
                     <div class="alert alert-warning mb-0">
-                        <i class="bi bi-exclamation-triangle"></i> Device ini belum memiliki tag
+                        <i class="bi bi-exclamation-triangle"></i> This device does not have any tags yet
                     </div>
                 </div>
             </div>

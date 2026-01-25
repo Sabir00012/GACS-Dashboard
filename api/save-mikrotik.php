@@ -17,7 +17,7 @@ $username = $data['username'] ?? '';
 $password = $data['password'] ?? '';
 
 if (empty($host) || empty($username) || empty($password)) {
-    jsonResponse(['success' => false, 'message' => 'Semua field harus diisi']);
+    jsonResponse(['success' => false, 'message' => 'All fields are required']);
 }
 
 // Save to database without testing
@@ -38,7 +38,7 @@ if ($existing) {
 }
 
 if ($stmt->execute()) {
-    jsonResponse(['success' => true, 'message' => 'Konfigurasi MikroTik berhasil disimpan']);
+    jsonResponse(['success' => true, 'message' => 'MikroTik configuration saved successfully']);
 } else {
-    jsonResponse(['success' => false, 'message' => 'Gagal menyimpan konfigurasi']);
+    jsonResponse(['success' => false, 'message' => 'Failed to save configuration']);
 }

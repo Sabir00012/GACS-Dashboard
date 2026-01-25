@@ -17,7 +17,7 @@ $username = $data['username'] ?? null;
 $password = $data['password'] ?? null;
 
 if (empty($host)) {
-    jsonResponse(['success' => false, 'message' => 'Host harus diisi']);
+    jsonResponse(['success' => false, 'message' => 'Host is required']);
 }
 
 // Save to database without testing
@@ -38,7 +38,7 @@ if ($existing) {
 }
 
 if ($stmt->execute()) {
-    jsonResponse(['success' => true, 'message' => 'Konfigurasi GenieACS berhasil disimpan']);
+    jsonResponse(['success' => true, 'message' => 'GenieACS configuration saved successfully']);
 } else {
-    jsonResponse(['success' => false, 'message' => 'Gagal menyimpan konfigurasi']);
+    jsonResponse(['success' => false, 'message' => 'Failed to save configuration']);
 }

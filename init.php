@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         header('Location: init.php');
         exit;
     } else {
-        $loginError = 'Username atau password salah!';
+        $loginError = 'Username or password is incorrect!';
     }
 }
 
@@ -79,7 +79,7 @@ $composerJsonExists = file_exists($rootPath . '/composer.json');
 $checks['composer'] = [
     'status' => $composerInstalled,
     'label' => 'Composer Dependencies',
-    'message' => $composerInstalled ? 'Vendor folder ditemukan' : 'Composer belum diinstall',
+    'message' => $composerInstalled ? 'Vendor folder found' : 'Composer not yet installed',
     'action' => !$composerInstalled && $composerJsonExists ? 'install' : null
 ];
 
@@ -94,19 +94,19 @@ $databasePhpExists = file_exists($rootPath . '/config/database.php');
 $checks['config_dir'] = [
     'status' => $configDirExists,
     'label' => 'Config Directory',
-    'message' => $configDirExists ? 'Folder config ditemukan' : 'Folder config tidak ditemukan'
+    'message' => $configDirExists ? 'Config folder found' : 'Config folder not found'
 ];
 
 $checks['config_php'] = [
     'status' => $configPhpExists,
     'label' => 'Config File (config.php)',
-    'message' => $configPhpExists ? 'File config.php ditemukan' : 'File config.php tidak ditemukan'
+    'message' => $configPhpExists ? 'File config.php found' : 'File config.php not found'
 ];
 
 $checks['database_php'] = [
     'status' => $databasePhpExists,
     'label' => 'Database Config (database.php)',
-    'message' => $databasePhpExists ? 'File database.php ditemukan' : 'File database.php tidak ditemukan'
+    'message' => $databasePhpExists ? 'File database.php found' : 'File database.php not found'
 ];
 
 // ============================================================================
@@ -148,7 +148,7 @@ if ($databasePhpExists) {
 $checks['database_config'] = [
     'status' => $databaseConfigured,
     'label' => 'Database Configuration',
-    'message' => $databaseConfigured ? 'Database sudah dikonfigurasi' : 'Database belum dikonfigurasi'
+    'message' => $databaseConfigured ? 'Database already configured' : 'Database not yet configured'
 ];
 
 if ($databaseConfigured && $isAuthenticated) {
@@ -156,8 +156,8 @@ if ($databaseConfigured && $isAuthenticated) {
         'status' => $dbConnectionTest,
         'label' => 'Database Connection Test',
         'message' => $dbConnectionTest
-            ? 'Koneksi database berhasil'
-            : 'Koneksi database gagal: ' . ($dbError ?? 'Unknown error')
+            ? 'Database connection successful'
+            : 'Database connection failed: ' . ($dbError ?? 'Unknown error')
     ];
 }
 
@@ -170,7 +170,7 @@ $databaseSqlExists = file_exists($rootPath . '/database.sql');
 $checks['database_sql'] = [
     'status' => $databaseSqlExists,
     'label' => 'Database Schema File',
-    'message' => $databaseSqlExists ? 'File database.sql ditemukan' : 'File database.sql tidak ditemukan'
+    'message' => $databaseSqlExists ? 'File database.sql found' : 'File database.sql not found'
 ];
 
 // ============================================================================
@@ -214,12 +214,12 @@ if ($dbConnectionTest && $isAuthenticated) {
 }
 
 // Build message for database tables check
-$tableCheckMessage = 'Koneksi database diperlukan untuk pengecekan';
+$tableCheckMessage = 'Database connection required for checking';
 if ($dbConnectionTest) {
     if ($databaseTablesImported) {
-        $tableCheckMessage = "Database schema sudah diimport ($tableCount tables)";
+        $tableCheckMessage = "Database schema already imported ($tableCount tables)";
     } elseif ($tableCount > 0) {
-        $tableCheckMessage = "Database tidak lengkap ($tableCount/24 tables)";
+        $tableCheckMessage = "Database incomplete ($tableCount/24 tables)";
         if (!empty($missingTables)) {
             $tableCheckMessage .= ". Missing: " . implode(', ', array_slice($missingTables, 0, 3));
             if (count($missingTables) > 3) {
@@ -227,7 +227,7 @@ if ($dbConnectionTest) {
             }
         }
     } else {
-        $tableCheckMessage = 'Database masih kosong, belum diimport';
+        $tableCheckMessage = 'Database is still empty, not yet imported';
     }
 }
 
@@ -665,7 +665,7 @@ foreach ($checks as $check) {
                                         <pre id="composer-install">cd <?php echo $rootPath; ?>&#10;composer install</pre>
                                     </div>
                                     <small class="text-muted">
-                                        <i class="bi bi-info-circle"></i> Jalankan perintah di atas melalui SSH/Terminal untuk menginstall dependencies
+                                        <i class="bi bi-info-circle"></i> Run the above command via SSH/Terminal to install dependencies
                                     </small>
                                 <?php endif; ?>
                             </div>
@@ -701,37 +701,37 @@ foreach ($checks as $check) {
                                     <button class="btn btn-sm btn-success copy-btn" onclick="copyCommand('cmd2', event)">
                                         <i class="bi bi-clipboard"></i> Copy
                                     </button>
-                                    <pre id="cmd2">cd <?php echo $rootPath; ?>&#10;mysql -u <?php echo defined('DB_USER') ? DB_USER : '[username]'; ?> -p<?php echo defined('DB_PASS') ? DB_PASS : '[password]'; ?> -D <?php echo defined('DB_NAME') ? DB_NAME : '[database]'; ?> < database.sql&#10;&#10;# Atau gunakan mariadb:&#10;mariadb -u <?php echo defined('DB_USER') ? DB_USER : '[username]'; ?> -p<?php echo defined('DB_PASS') ? DB_PASS : '[password]'; ?> -D <?php echo defined('DB_NAME') ? DB_NAME : '[database]'; ?> < database.sql</pre>
+                                    <pre id="cmd2">cd <?php echo $rootPath; ?>&#10;mysql -u <?php echo defined('DB_USER') ? DB_USER : '[username]'; ?> -p<?php echo defined('DB_PASS') ? DB_PASS : '[password]'; ?> -D <?php echo defined('DB_NAME') ? DB_NAME : '[database]'; ?> < database.sql&#10;&#10;# Or use mariadb:&#10;mariadb -u <?php echo defined('DB_USER') ? DB_USER : '[username]'; ?> -p<?php echo defined('DB_PASS') ? DB_PASS : '[password]'; ?> -D <?php echo defined('DB_NAME') ? DB_NAME : '[database]'; ?> < database.sql</pre>
                                 </div>
                                 <div class="alert alert-danger mt-2 mb-0" style="font-size: 0.85rem;">
-                                    <i class="bi bi-exclamation-triangle-fill"></i> <strong>Perhatian:</strong> Password ditampilkan untuk kemudahan setup. <strong>Hapus file init.php setelah instalasi selesai!</strong>
+                                    <i class="bi bi-exclamation-triangle-fill"></i> <strong>Warning:</strong> Password is displayed for setup convenience. <strong>Delete init.php file after installation is complete!</strong>
                                 </div>
                             <?php endif; ?>
 
                             <?php if ($dbConnectionTest && !$databaseTablesImported): ?>
                                 <p><strong>3. Import Database Schema:</strong></p>
                                 <div class="alert alert-warning mb-3">
-                                    <i class="bi bi-exclamation-circle"></i> <strong>Database kosong atau tidak lengkap!</strong><br>
-                                    Koneksi database berhasil, namun tables belum diimport atau tidak lengkap.<br>
-                                    Tables ditemukan: <strong><?php echo $tableCount; ?> / 24</strong>
+                                    <i class="bi bi-exclamation-circle"></i> <strong>Database empty or incomplete!</strong><br>
+                                    Database connection successful, but tables have not been imported or are incomplete.<br>
+                                    Tables found: <strong><?php echo $tableCount; ?> / 24</strong>
                                 </div>
                                 <div class="command-box">
                                     <button class="btn btn-sm btn-success copy-btn" onclick="copyCommand('cmd3', event)">
                                         <i class="bi bi-clipboard"></i> Copy
                                     </button>
-                                    <pre id="cmd3">cd <?php echo $rootPath; ?>&#10;mysql -u <?php echo defined('DB_USER') ? DB_USER : '[username]'; ?> -p<?php echo defined('DB_PASS') ? DB_PASS : '[password]'; ?> -D <?php echo defined('DB_NAME') ? DB_NAME : '[database]'; ?> < database.sql&#10;&#10;# Atau gunakan mariadb:&#10;mariadb -u <?php echo defined('DB_USER') ? DB_USER : '[username]'; ?> -p<?php echo defined('DB_PASS') ? DB_PASS : '[password]'; ?> -D <?php echo defined('DB_NAME') ? DB_NAME : '[database]'; ?> < database.sql</pre>
+                                    <pre id="cmd3">cd <?php echo $rootPath; ?>&#10;mysql -u <?php echo defined('DB_USER') ? DB_USER : '[username]'; ?> -p<?php echo defined('DB_PASS') ? DB_PASS : '[password]'; ?> -D <?php echo defined('DB_NAME') ? DB_NAME : '[database]'; ?> < database.sql&#10;&#10;# Or use mariadb:&#10;mariadb -u <?php echo defined('DB_USER') ? DB_USER : '[username]'; ?> -p<?php echo defined('DB_PASS') ? DB_PASS : '[password]'; ?> -D <?php echo defined('DB_NAME') ? DB_NAME : '[database]'; ?> < database.sql</pre>
                                 </div>
                                 <div class="alert alert-danger mt-2 mb-0" style="font-size: 0.85rem;">
-                                    <i class="bi bi-exclamation-triangle-fill"></i> <strong>Perhatian:</strong> Password ditampilkan untuk kemudahan setup. <strong>Hapus file init.php setelah instalasi selesai!</strong>
+                                    <i class="bi bi-exclamation-triangle-fill"></i> <strong>Warning:</strong> Password is displayed for setup convenience. <strong>Delete init.php file after installation is complete!</strong>
                                 </div>
                             <?php endif; ?>
 
-                            <p class="mt-3"><strong>4. Refresh halaman ini setelah menyelesaikan langkah-langkah di atas.</strong></p>
+                            <p class="mt-3"><strong>4. Refresh this page after completing the steps above.</strong></p>
                         </div>
                     <?php else: ?>
                         <div class="alert alert-success mt-4">
                             <h5><i class="bi bi-check-circle-fill"></i> Setup Complete!</h5>
-                            <p class="mb-3">Semua pengecekan berhasil. Sistem siap digunakan!</p>
+                            <p class="mb-3">All checks passed. System is ready to use!</p>
                             <a href="index.php" class="btn btn-success">
                                 <i class="bi bi-box-arrow-in-right"></i> Go to Dashboard
                             </a>
@@ -740,11 +740,11 @@ foreach ($checks as $check) {
 
                     <!-- GenieACS Installation Info -->
                     <div class="alert alert-info mt-4">
-                        <h5><i class="bi bi-hdd-network"></i> Butuh GenieACS?</h5>
-                        <p class="mb-2">GACS Dashboard membutuhkan GenieACS (TR-069 ACS) untuk mengelola perangkat ONU.</p>
+                        <h5><i class="bi bi-hdd-network"></i> Need GenieACS?</h5>
+                        <p class="mb-2">GACS Dashboard requires GenieACS (TR-069 ACS) to manage ONU devices.</p>
                         <p class="mb-0">
                             <i class="bi bi-github"></i>
-                            <strong>Panduan instalasi lengkap GenieACS di Ubuntu 22.04:</strong><br>
+                            <strong>Complete GenieACS installation guide for Ubuntu 22.04:</strong><br>
                             <a href="https://github.com/safrinnetwork/GACS-Ubuntu-22.04" target="_blank" class="text-decoration-none" style="font-weight: 600;">
                                 https://github.com/safrinnetwork/GACS-Ubuntu-22.04
                                 <i class="bi bi-box-arrow-up-right"></i>
@@ -789,7 +789,7 @@ foreach ($checks as $check) {
                     btn.classList.add('btn-success');
                 }, 2000);
             }).catch(err => {
-                alert('Gagal menyalin: ' + err);
+                alert('Failed to copy: ' + err);
             });
         }
 

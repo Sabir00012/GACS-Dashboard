@@ -1,7 +1,7 @@
 <?php
 /**
- * API endpoint untuk menyimpan client-side logs dari browser
- * Logs akan disimpan ke file /var/log/gacs-client.log
+ * API endpoint for saving client-side logs from browser
+ * Logs will be saved to file /var/log/gacs-client.log
  */
 
 header('Content-Type: application/json');

@@ -13,7 +13,7 @@ if (!isset($_SESSION['user_id'])) {
 $data = json_decode(file_get_contents('php://input'), true);
 
 if (empty($data['host']) || empty($data['username']) || empty($data['password'])) {
-    jsonResponse(['success' => false, 'message' => 'Host, Username, dan Password harus diisi']);
+    jsonResponse(['success' => false, 'message' => 'Host, Username, and Password are required']);
     exit;
 }
 

@@ -64,10 +64,10 @@ if (isset($update['message'])) {
 
                         $telegram->sendMessage($message, $chatId);
                     } else {
-                        $telegram->sendMessage("❌ Device tidak ditemukan", $chatId);
+                        $telegram->sendMessage("❌ Device not found", $chatId);
                     }
                 } else {
-                    $telegram->sendMessage("❌ GenieACS tidak terkonfigurasi", $chatId);
+                    $telegram->sendMessage("❌ GenieACS is not configured", $chatId);
                 }
                 break;
 
@@ -105,10 +105,10 @@ if (isset($update['message'])) {
 
                         $telegram->sendMessage($message, $chatId);
                     } else {
-                        $telegram->sendMessage("❌ Gagal mengambil daftar device", $chatId);
+                        $telegram->sendMessage("❌ Failed to retrieve device list", $chatId);
                     }
                 } else {
-                    $telegram->sendMessage("❌ GenieACS tidak terkonfigurasi", $chatId);
+                    $telegram->sendMessage("❌ GenieACS is not configured", $chatId);
                 }
                 break;
 
@@ -130,9 +130,9 @@ if (isset($update['message'])) {
                     $result = $genieacs->summonDevice($deviceId);
 
                     if ($result['success']) {
-                        $telegram->sendMessage("✅ Device <code>{$deviceId}</code> berhasil di-summon!", $chatId);
+                        $telegram->sendMessage("✅ Device <code>{$deviceId}</code> successfully summoned!", $chatId);
                     } else {
-                        $telegram->sendMessage("❌ Gagal summon device", $chatId);
+                        $telegram->sendMessage("❌ Failed to summon device", $chatId);
                     }
                 } else {
                     $telegram->sendMessage("❌ GenieACS tidak terkonfigurasi", $chatId);

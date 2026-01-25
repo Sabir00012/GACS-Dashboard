@@ -1,7 +1,7 @@
 <?php
 /**
- * API endpoint untuk clear client-side logs
- * Hanya bisa diakses oleh user yang sudah login
+ * API endpoint for clearing client-side logs
+ * Only accessible by logged-in users
  */
 
 require_once __DIR__ . '/../config/config.php';

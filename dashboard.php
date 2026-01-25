@@ -14,8 +14,8 @@ include __DIR__ . '/views/layouts/header.php';
 <?php if (!$genieacsConfigured): ?>
     <div class="alert alert-warning">
         <i class="bi bi-exclamation-triangle"></i>
-        GenieACS belum dikonfigurasi. Silakan konfigurasi terlebih dahulu di
-        <a href="/configuration.php">halaman Configuration</a>.
+        GenieACS is not yet configured. Please configure it first on the
+        <a href="/configuration.php">Configuration page</a>.
     </div>
 <?php else: ?>
     <!-- Stats Cards -->
@@ -146,22 +146,22 @@ include __DIR__ . '/views/layouts/header.php';
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
-                    <i class="bi bi-exclamation-circle"></i> ONU Belum Terdaftar
+                    <i class="bi bi-exclamation-circle"></i> ONU Not Registered
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body text-center py-4">
                 <i class="bi bi-map" style="font-size: 3rem; color: var(--secondary-color);"></i>
-                <h5 class="mt-3">ONU Belum Terdaftar di Map</h5>
-                <p class="text-muted mb-2">Device dengan Serial Number <strong id="not-in-map-serial"></strong> belum terdaftar di Network Map.</p>
-                <p class="text-muted mb-0"><small>Silakan tambahkan ONU ini ke map terlebih dahulu untuk melihat lokasi topologi.</small></p>
+                <h5 class="mt-3">ONU Not Registered on Map</h5>
+                <p class="text-muted mb-2">Device with Serial Number <strong id="not-in-map-serial"></strong> is not yet registered on the Network Map.</p>
+                <p class="text-muted mb-0"><small>Please add this ONU to the map first to view its topology location.</small></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    <i class="bi bi-x-lg"></i> Tutup
+                    <i class="bi bi-x-lg"></i> Close
                 </button>
                 <button type="button" class="btn btn-primary" onclick="window.open('/map.php', '_blank')">
-                    <i class="bi bi-map"></i> Buka Network Map
+                    <i class="bi bi-map"></i> Open Network Map
                 </button>
             </div>
         </div>
@@ -202,7 +202,7 @@ async function loadDashboardData() {
             updateChart(stats);
         } else {
             if (result && result.error !== 'timeout') {
-                showToast('Gagal memuat data dashboard', 'danger');
+                showToast('Failed to load dashboard data', 'danger');
             }
         }
     } catch (error) {
@@ -269,7 +269,7 @@ async function loadUplinkData() {
             updateUplinkChart(result.data);
         } else {
             if (result && result.error !== 'timeout') {
-                showToast('Gagal memuat data uplink', 'danger');
+                showToast('Failed to load uplink data', 'danger');
             }
         }
     } catch (error) {
@@ -538,9 +538,9 @@ async function confirmSummon() {
     hideLoading();
 
     if (result && result.success) {
-        showToast('Device summon berhasil!', 'success');
+        showToast('Device summon successful!', 'success');
     } else {
-        showToast(result.message || 'Gagal summon device', 'danger');
+        showToast(result.message || 'Failed to summon device', 'danger');
     }
 
     currentSummonDeviceId = null;

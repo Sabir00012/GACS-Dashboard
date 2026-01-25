@@ -7,7 +7,7 @@ requireLogin();
 $data = json_decode(file_get_contents('php://input'), true);
 
 if (empty($data['host']) || empty($data['port'])) {
-    jsonResponse(['success' => false, 'message' => 'Host dan Port harus diisi']);
+    jsonResponse(['success' => false, 'message' => 'Host and Port are required']);
 }
 
 $host = $data['host'];

@@ -6,7 +6,7 @@ requireLogin();
 
 // Check if GenieACS is configured
 if (!isGenieACSConfigured()) {
-    jsonResponse(['success' => false, 'message' => 'GenieACS belum dikonfigurasi']);
+    jsonResponse(['success' => false, 'message' => 'GenieACS is not yet configured']);
 }
 
 // Get GenieACS credentials
@@ -15,7 +15,7 @@ $result = $conn->query("SELECT * FROM genieacs_credentials WHERE is_connected = 
 $credentials = $result->fetch_assoc();
 
 if (!$credentials) {
-    jsonResponse(['success' => false, 'message' => 'GenieACS tidak terhubung']);
+    jsonResponse(['success' => false, 'message' => 'GenieACS is not connected']);
 }
 
 use App\GenieACS;
@@ -35,5 +35,5 @@ if ($stats['success']) {
         'stats' => $stats['data']
     ]);
 } else {
-    jsonResponse(['success' => false, 'message' => 'Gagal mengambil statistik']);
+    jsonResponse(['success' => false, 'message' => 'Failed to retrieve statistics']);
 }

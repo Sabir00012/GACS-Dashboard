@@ -11,7 +11,7 @@ $result = $conn->query("SELECT * FROM mikrotik_credentials WHERE is_connected = 
 $credentials = $result->fetch_assoc();
 
 if (!$credentials) {
-    jsonResponse(['success' => false, 'message' => 'MikroTik tidak terhubung', 'netwatch' => []]);
+    jsonResponse(['success' => false, 'message' => 'MikroTik is not connected', 'netwatch' => []]);
 }
 
 use App\MikroTikAPI;
@@ -27,7 +27,7 @@ try {
     $connected = $mikrotik->connect();
 
     if (!$connected) {
-        jsonResponse(['success' => false, 'message' => 'Gagal terhubung ke MikroTik', 'netwatch' => []]);
+        jsonResponse(['success' => false, 'message' => 'Failed to connect to MikroTik', 'netwatch' => []]);
     }
 
     // Get netwatch entries

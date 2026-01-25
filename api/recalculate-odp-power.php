@@ -1,8 +1,8 @@
 <?php
 /**
  * Recalculate ODP Power
- * Script untuk menghitung ulang power pada semua ODP dengan benar
- * Menambahkan insertion loss 0.7 dB yang sebelumnya hilang
+ * Script to correctly recalculate power for all ODPs
+ * Adds the previously missing 0.7 dB insertion loss
  */
 
 require_once __DIR__ . '/../config/config.php';
@@ -70,7 +70,7 @@ while ($odp = $result->fetch_assoc()) {
             }
         }
 
-        // Recalculate ODP power dengan insertion loss yang benar
+        // Recalculate ODP power with correct insertion loss
         $newCalculatedPower = $calculator->calculateODPPower($inputPower, $useSplitter ? $splitterRatio : null);
 
         // Update database

@@ -17,7 +17,7 @@ $newPassword = $data['new_password'] ?? '';
 $confirmPassword = $data['confirm_password'] ?? '';
 
 if (empty($currentPassword) || empty($newUsername)) {
-    jsonResponse(['success' => false, 'message' => 'Password saat ini dan username baru harus diisi']);
+    jsonResponse(['success' => false, 'message' => 'Current password and new username are required']);
 }
 
 // Verify current password
@@ -29,13 +29,13 @@ $result = $stmt->get_result();
 
 if ($user = $result->fetch_assoc()) {
     if (!password_verify($currentPassword, $user['password'])) {
-        jsonResponse(['success' => false, 'message' => 'Password saat ini salah']);
+        jsonResponse(['success' => false, 'message' => 'Current password is incorrect']);
     }
 
     // Update credentials
     if (!empty($newPassword)) {
         if ($newPassword !== $confirmPassword) {
-            jsonResponse(['success' => false, 'message' => 'Konfirmasi password tidak cocok']);
+            jsonResponse(['success' => false, 'message' => 'Password confirmation does not match']);
         }
 
         $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
@@ -48,10 +48,10 @@ if ($user = $result->fetch_assoc()) {
 
     if ($stmt->execute()) {
         $_SESSION['username'] = $newUsername;
-        jsonResponse(['success' => true, 'message' => 'Kredensial berhasil diupdate']);
+        jsonResponse(['success' => true, 'message' => 'Credentials successfully updated']);
     } else {
-        jsonResponse(['success' => false, 'message' => 'Gagal mengupdate kredensial']);
+        jsonResponse(['success' => false, 'message' => 'Failed to update credentials']);
     }
 } else {
-    jsonResponse(['success' => false, 'message' => 'User tidak ditemukan']);
+    jsonResponse(['success' => false, 'message' => 'User not found']);
 }

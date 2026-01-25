@@ -9,7 +9,7 @@ set_time_limit(300);
 ini_set('max_execution_time', 300);
 
 if (!isGenieACSConfigured()) {
-    jsonResponse(['success' => false, 'message' => 'GenieACS belum dikonfigurasi']);
+    jsonResponse(['success' => false, 'message' => 'GenieACS is not yet configured']);
 }
 
 $conn = getDBConnection();
@@ -17,7 +17,7 @@ $result = $conn->query("SELECT * FROM genieacs_credentials WHERE is_connected = 
 $credentials = $result->fetch_assoc();
 
 if (!$credentials) {
-    jsonResponse(['success' => false, 'message' => 'GenieACS tidak terhubung']);
+    jsonResponse(['success' => false, 'message' => 'GenieACS is not connected']);
 }
 
 use App\GenieACS;
@@ -60,7 +60,7 @@ try {
     } else {
         jsonResponse([
             'success' => false,
-            'message' => 'Gagal mengambil data devices',
+            'message' => 'Failed to retrieve devices data',
             'error' => $devicesResult['error'] ?? 'Unknown error'
         ]);
     }

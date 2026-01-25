@@ -13,8 +13,8 @@ include __DIR__ . '/views/layouts/header.php';
 <?php if (!$genieacsConfigured): ?>
     <div class="alert alert-warning">
         <i class="bi bi-exclamation-triangle"></i>
-        GenieACS belum dikonfigurasi. Silakan konfigurasi terlebih dahulu di
-        <a href="/configuration.php">halaman Configuration</a>.
+        GenieACS is not yet configured. Please configure it first on the
+        <a href="/configuration.php">Configuration page</a>.
     </div>
 <?php else: ?>
     <div class="row mb-3" id="map-container-fullscreen">
@@ -25,7 +25,7 @@ include __DIR__ . '/views/layouts/header.php';
                         <i class="bi bi-plus-lg"></i> Add
                     </button>
                     <button class="btn btn-warning" id="edit-line-mode-toggle" onclick="toggleEditLineMode()">
-                        <span id="edit-line-mode-text"><i class="bi bi-pencil"></i> Edit Garis</span>
+                        <span id="edit-line-mode-text"><i class="bi bi-pencil"></i> Edit Lines</span>
                     </button>
                     <button class="btn btn-secondary" id="fullscreen-toggle" onclick="toggleFullscreen()" title="Toggle Fullscreen">
                         <i class="bi bi-arrows-fullscreen" id="fullscreen-icon"></i>
@@ -69,19 +69,19 @@ include __DIR__ . '/views/layouts/header.php';
         </div>
     </div>
 
-    <!-- Context Menu untuk Polylines -->
+    <!-- Context Menu for Polylines -->
     <div id="polyline-context-menu" class="context-menu" style="display: none; position: absolute; z-index: 9999; background: white; border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); min-width: 150px;">
         <div class="context-menu-item" onclick="enablePolylineEdit()">
-            <i class="bi bi-pencil"></i> Edit Jalur
+            <i class="bi bi-pencil"></i> Edit Path
         </div>
         <div class="context-menu-item" onclick="savePolylineWaypoints()">
-            <i class="bi bi-save"></i> Simpan Waypoints
+            <i class="bi bi-save"></i> Save Waypoints
         </div>
         <div class="context-menu-item" onclick="resetPolylineToStraight()">
-            <i class="bi bi-arrow-counterclockwise"></i> Reset ke Garis Lurus
+            <i class="bi bi-arrow-counterclockwise"></i> Reset to Straight Line
         </div>
         <div class="context-menu-item" onclick="closeContextMenu()">
-            <i class="bi bi-x-lg"></i> Tutup
+            <i class="bi bi-x-lg"></i> Close
         </div>
     </div>
 <?php endif; ?>
@@ -381,7 +381,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         console.log('✓ Successfully focused on item');
                     } else {
                         console.log('✗ Failed to focus - item not found');
-                        showToast('Device tidak ditemukan di map', 'warning');
+                        showToast('Device not found on map', 'warning');
                     }
                 }, 500); // Wait 500ms for markers to fully render
             } else {
@@ -421,7 +421,7 @@ function toggleFullscreen() {
         // Force modals to appear above fullscreen
         fixModalsZIndex();
 
-        showToast('Mode Full Screen Aktif! Tekan ESC atau klik tombol untuk keluar.', 'info', 5000);
+        showToast('Fullscreen Mode Active! Press ESC or click button to exit.', 'info', 5000);
     } else {
         // Exit fullscreen
         if (document.exitFullscreen) {
@@ -441,7 +441,7 @@ function toggleFullscreen() {
         // Restore modals back to body
         restoreModalsToBody();
 
-        showToast('Mode Full Screen Dinonaktifkan', 'info', 3000);
+        showToast('Fullscreen Mode Deactivated', 'info', 3000);
     }
 
     // Invalidate map size after fullscreen change (Leaflet needs this)

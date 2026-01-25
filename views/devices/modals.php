@@ -4,22 +4,22 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
-                    <i class="bi bi-lightning-charge"></i> Konfirmasi Summon Device
+                    <i class="bi bi-lightning-charge"></i> Confirm Summon Device
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body text-center py-4">
                 <i class="bi bi-exclamation-triangle" style="font-size: 3rem; color: var(--warning-color);"></i>
                 <h5 class="mt-3">Summon Device?</h5>
-                <p class="text-muted mb-0">Apakah Anda yakin ingin melakukan connection request ke device ini?</p>
+                <p class="text-muted mb-0">Are you sure you want to make a connection request to this device?</p>
                 <p class="text-muted mb-0"><small>Device ID: <strong id="summon-device-id"></strong></small></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    <i class="bi bi-x-lg"></i> Batal
+                    <i class="bi bi-x-lg"></i> Cancel
                 </button>
                 <button type="button" class="btn btn-primary" onclick="confirmSummon()">
-                    <i class="bi bi-lightning-charge"></i> Ya, Summon
+                    <i class="bi bi-lightning-charge"></i> Yes, Summon
                 </button>
             </div>
         </div>
@@ -32,22 +32,22 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
-                    <i class="bi bi-exclamation-circle"></i> ONU Belum Terdaftar
+                    <i class="bi bi-exclamation-circle"></i> ONU Not Registered
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body text-center py-4">
                 <i class="bi bi-map" style="font-size: 3rem; color: var(--secondary-color);"></i>
-                <h5 class="mt-3">ONU Belum Terdaftar di Map</h5>
-                <p class="text-muted mb-2">Device dengan Serial Number <strong id="not-in-map-serial"></strong> belum terdaftar di Network Map.</p>
-                <p class="text-muted mb-0"><small>Silakan tambahkan ONU ini ke map terlebih dahulu untuk melihat lokasi topologi.</small></p>
+                <h5 class="mt-3">ONU Not Registered on Map</h5>
+                <p class="text-muted mb-2">Device with Serial Number <strong id="not-in-map-serial"></strong> is not yet registered on the Network Map.</p>
+                <p class="text-muted mb-0"><small>Please add this ONU to the map first to view its topology location.</small></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    <i class="bi bi-x-lg"></i> Tutup
+                    <i class="bi bi-x-lg"></i> Close
                 </button>
                 <button type="button" class="btn btn-primary" onclick="window.open('/map.php', '_blank')">
-                    <i class="bi bi-map"></i> Buka Network Map
+                    <i class="bi bi-map"></i> Open Network Map
                 </button>
             </div>
         </div>

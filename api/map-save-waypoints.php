@@ -55,12 +55,12 @@ try {
         jsonResponse([
             'success' => true,
             'message' => count($waypoints) > 0
-                ? 'Waypoints berhasil disimpan'
-                : 'Waypoints berhasil dihapus',
+                ? 'Waypoints successfully saved'
+                : 'Waypoints successfully deleted',
             'waypoints_count' => count($waypoints)
         ]);
     } else {
-        jsonResponse(['success' => false, 'message' => 'Gagal menyimpan waypoints'], 500);
+        jsonResponse(['success' => false, 'message' => 'Failed to save waypoints'], 500);
     }
 
 } catch (Exception $e) {

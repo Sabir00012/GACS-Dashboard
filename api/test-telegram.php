@@ -7,7 +7,7 @@ requireLogin();
 $data = json_decode(file_get_contents('php://input'), true);
 
 if (empty($data['bot_token'])) {
-    jsonResponse(['success' => false, 'message' => 'Bot Token harus diisi']);
+    jsonResponse(['success' => false, 'message' => 'Bot Token is required']);
 }
 
 $botToken = $data['bot_token'];

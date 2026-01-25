@@ -1,7 +1,7 @@
 <?php
 /**
- * API endpoint untuk membaca client-side logs
- * Hanya bisa diakses oleh user yang sudah login
+ * API endpoint for reading client-side logs
+ * Only accessible by logged-in users
  */
 
 require_once __DIR__ . '/../config/config.php';

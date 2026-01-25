@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
 
     if (empty($username) || empty($password)) {
-        $error = 'Username dan password harus diisi';
+        $error = 'Username and password are required';
     } else {
         $conn = getDBConnection();
         $stmt = $conn->prepare("SELECT id, username, password FROM users WHERE username = ?");
@@ -28,16 +28,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['username'] = $user['username'];
                 redirect('/dashboard.php');
             } else {
-                $error = 'Username atau password salah';
+                $error = 'Incorrect username or password';
             }
         } else {
-            $error = 'Username atau password salah';
+            $error = 'Incorrect username or password';
         }
     }
 }
 ?>
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <i class="bi bi-person"></i> Username
                     </label>
                     <input type="text" name="username" id="username" class="form-control"
-                           placeholder="Masukkan username" required autofocus>
+                           placeholder="Enter username" required autofocus>
                 </div>
 
                 <div class="form-group">
@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <i class="bi bi-lock"></i> Password
                     </label>
                     <input type="password" name="password" id="password" class="form-control"
-                           placeholder="Masukkan password" required>
+                           placeholder="Enter password" required>
                 </div>
 
                 <button type="submit" class="btn btn-primary w-100">

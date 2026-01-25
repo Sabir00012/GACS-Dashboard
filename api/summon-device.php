@@ -17,7 +17,7 @@ if (empty($deviceId)) {
 }
 
 if (!isGenieACSConfigured()) {
-    jsonResponse(['success' => false, 'message' => 'GenieACS belum dikonfigurasi']);
+    jsonResponse(['success' => false, 'message' => 'GenieACS is not yet configured']);
 }
 
 $conn = getDBConnection();
@@ -25,7 +25,7 @@ $result = $conn->query("SELECT * FROM genieacs_credentials WHERE is_connected = 
 $credentials = $result->fetch_assoc();
 
 if (!$credentials) {
-    jsonResponse(['success' => false, 'message' => 'GenieACS tidak terhubung']);
+    jsonResponse(['success' => false, 'message' => 'GenieACS is not connected']);
 }
 
 use App\GenieACS;
@@ -41,9 +41,9 @@ $genieacs = new GenieACS(
 $result = $genieacs->summonAndFetchAdminCredentials($deviceId);
 
 if ($result['success']) {
-    jsonResponse(['success' => true, 'message' => 'Device summon berhasil dan admin credentials sedang diambil...']);
+    jsonResponse(['success' => true, 'message' => 'Device summon successful and admin credentials are being retrieved...']);
 } else {
-    $errorMsg = 'Gagal summon device';
+    $errorMsg = 'Failed to summon device';
     if (isset($result['error'])) {
         $errorMsg .= ': ' . $result['error'];
     } elseif (isset($result['http_code'])) {

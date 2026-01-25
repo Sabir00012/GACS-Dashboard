@@ -15,7 +15,7 @@ $botToken = $data['bot_token'] ?? '';
 $chatId = $data['chat_id'] ?? '';
 
 if (empty($botToken) || empty($chatId)) {
-    jsonResponse(['success' => false, 'message' => 'Bot Token dan Chat ID harus diisi']);
+    jsonResponse(['success' => false, 'message' => 'Bot Token and Chat ID are required']);
 }
 
 // Save to database without testing
@@ -36,7 +36,7 @@ if ($existing) {
 }
 
 if ($stmt->execute()) {
-    jsonResponse(['success' => true, 'message' => 'Konfigurasi Telegram Bot berhasil disimpan']);
+    jsonResponse(['success' => true, 'message' => 'Telegram Bot configuration saved successfully']);
 } else {
-    jsonResponse(['success' => false, 'message' => 'Gagal menyimpan konfigurasi']);
+    jsonResponse(['success' => false, 'message' => 'Failed to save configuration']);
 }
