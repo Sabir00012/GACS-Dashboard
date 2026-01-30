@@ -17,6 +17,27 @@ include __DIR__ . '/views/layouts/header.php';
         <a href="/configuration.php">Configuration page</a>.
     </div>
 <?php else: ?>
+    <!-- Empty State Overlay - shown when no items -->
+    <div id="empty-map-overlay" class="position-fixed top-50 start-50 translate-middle text-center p-4 bg-white rounded-4 shadow-lg" style="z-index: 1000; display: none; max-width: 450px;">
+        <i class="bi bi-geo-alt-fill text-primary" style="font-size: 4rem;"></i>
+        <h4 class="mt-3">No Network Items Yet</h4>
+        <p class="text-muted mb-4">
+            Start building your network topology by adding your first device.
+            Click anywhere on the map, then click <strong>"Add Item"</strong> to place a device.
+        </p>
+        <div class="d-grid gap-2">
+            <button class="btn btn-primary btn-lg" onclick="hideEmptyOverlay(); showAddItemModal();">
+                <i class="bi bi-plus-lg"></i> Add First Device
+            </button>
+            <button class="btn btn-outline-secondary" onclick="loadSampleData()">
+                <i class="bi bi-database"></i> Load Sample Data
+            </button>
+        </div>
+        <div class="mt-3">
+            <small class="text-muted">Tip: Click on map to set location, then add Server → OLT → ODC → ODP → ONU</small>
+        </div>
+    </div>
+
     <div class="row mb-3" id="map-container-fullscreen">
         <div class="col-12">
             <div class="card">
@@ -27,6 +48,20 @@ include __DIR__ . '/views/layouts/header.php';
                     <button class="btn btn-warning" id="edit-line-mode-toggle" onclick="toggleEditLineMode()">
                         <span id="edit-line-mode-text"><i class="bi bi-pencil"></i> Edit Lines</span>
                     </button>
+                    <div class="btn-group">
+                        <button class="btn btn-info text-white dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Map Tools">
+                            <i class="bi bi-tools"></i> Tools
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" onclick="activateDrawTool('ruler')"><i class="bi bi-rulers"></i> Measure Distance</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="activateDrawTool('area')"><i class="bi bi-bounding-box"></i> Measure Area</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="activateDrawTool('annotation')"><i class="bi bi-pencil"></i> Draw Annotation</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="activateDrawTool('text')"><i class="bi bi-fonts"></i> Add Text Label</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#" onclick="clearAllMeasurements()"><i class="bi bi-trash"></i> Clear All</a></li>
+                        </ul>
+                    </div>
                     <button class="btn btn-secondary" id="fullscreen-toggle" onclick="toggleFullscreen()" title="Toggle Fullscreen">
                         <i class="bi bi-arrows-fullscreen" id="fullscreen-icon"></i>
                     </button>
@@ -344,6 +379,7 @@ include __DIR__ . '/views/layouts/header.php';
 <script src="/assets/js/map/map-polylines.js?v=<?php echo $jsVersion; ?>"></script>
 <script src="/assets/js/map/map-items.js?v=<?php echo $jsVersion; ?>"></script>
 <script src="/assets/js/map/map-server.js?v=<?php echo $jsVersion; ?>"></script>
+<script src="/assets/js/map/map-tools.js?v=<?php echo $jsVersion; ?>"></script>
 
 <!-- Initialize map when page loads -->
 <script>
@@ -534,4 +570,125 @@ document.addEventListener('webkitfullscreenchange', function() {
 document.addEventListener('mozfullscreenchange', function() {
     document.dispatchEvent(new Event('fullscreenchange'));
 });
+
+// Empty state overlay functions
+function showEmptyOverlay() {
+    const overlay = document.getElementById('empty-map-overlay');
+    if (overlay) overlay.style.display = 'block';
+}
+
+function hideEmptyOverlay() {
+    const overlay = document.getElementById('empty-map-overlay');
+    if (overlay) overlay.style.display = 'none';
+}
+
+// Check and show empty overlay after map loads
+function checkEmptyState() {
+    const serverCount = parseInt(document.getElementById('server-count')?.textContent || '0');
+    const oltCount = parseInt(document.getElementById('olt-count')?.textContent || '0');
+    const odcCount = parseInt(document.getElementById('odc-count')?.textContent || '0');
+    const odpCount = parseInt(document.getElementById('odp-count')?.textContent || '0');
+    const onuCount = parseInt(document.getElementById('onu-count')?.textContent || '0');
+    
+    const totalItems = serverCount + oltCount + odcCount + odpCount + onuCount;
+    
+    if (totalItems === 0) {
+        showEmptyOverlay();
+    } else {
+        hideEmptyOverlay();
+    }
+}
+
+// Load sample data for testing
+async function loadSampleData() {
+    if (!confirm('This will add sample network devices to the map for demonstration. Continue?')) {
+        return;
+    }
+    
+    hideEmptyOverlay();
+    showToast('Loading sample data...', 'info');
+    
+    try {
+        // Get current map center
+        const center = map.getCenter();
+        const lat = center.lat;
+        const lng = center.lng;
+        
+        // Sample data: Server -> OLT -> ODC -> ODP
+        const sampleItems = [
+            {
+                item_type: 'server',
+                name: 'Main Server',
+                latitude: lat + 0.005,
+                longitude: lng - 0.005,
+                properties: { pon_port_count: 8 }
+            },
+            {
+                item_type: 'olt',
+                name: 'OLT-01',
+                latitude: lat + 0.003,
+                longitude: lng + 0.003,
+                properties: {}
+            },
+            {
+                item_type: 'odc',
+                name: 'ODC-A',
+                latitude: lat - 0.002,
+                longitude: lng - 0.002,
+                properties: { has_splitter: 1, splitter_ratio: '1:8' }
+            },
+            {
+                item_type: 'odp',
+                name: 'ODP-01',
+                latitude: lat - 0.004,
+                longitude: lng + 0.001,
+                properties: { port_count: 8 }
+            },
+            {
+                item_type: 'odp',
+                name: 'ODP-02',
+                latitude: lat - 0.003,
+                longitude: lng + 0.004,
+                properties: { port_count: 8 }
+            }
+        ];
+        
+        // Add items one by one
+        for (const item of sampleItems) {
+            const formData = new FormData();
+            formData.append('item_type', item.item_type);
+            formData.append('name', item.name);
+            formData.append('latitude', item.latitude);
+            formData.append('longitude', item.longitude);
+            
+            // Add properties
+            Object.keys(item.properties).forEach(key => {
+                formData.append(key, item.properties[key]);
+            });
+            
+            await fetch('/api/map-add-item.php', {
+                method: 'POST',
+                body: formData
+            });
+        }
+        
+        showToast('Sample data loaded! Refreshing map...', 'success');
+        
+        // Reload map
+        setTimeout(() => {
+            loadMap();
+        }, 500);
+        
+    } catch (error) {
+        console.error('Error loading sample data:', error);
+        showToast('Error loading sample data: ' + error.message, 'danger');
+    }
+}
+
+// Check empty state after initial load
+setTimeout(checkEmptyState, 2000);
 </script>
+
+<?php endif; ?>
+
+<?php include __DIR__ . '/views/layouts/footer.php'; ?>

@@ -99,36 +99,40 @@ function initMap() {
     // Start initialization with short delay to allow script loading
     setTimeout(initEditable, 200);
 
-    // Base layers
-    const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors',
-        maxZoom: 19
+    // Google Maps tile layers
+    const googleStreets = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+        maxZoom: 20,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+        attribution: '&copy; Google Maps'
     });
 
-    const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
-        maxZoom: 19
+    const googleSatellite = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+        maxZoom: 20,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+        attribution: '&copy; Google Maps'
     });
 
-    const hybrid = L.layerGroup([
-        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-            maxZoom: 19
-        }),
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-            subdomains: 'abcd',
-            maxZoom: 19
-        })
-    ]);
+    const googleHybrid = L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+        maxZoom: 20,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+        attribution: '&copy; Google Maps'
+    });
 
-    // Add default layer
-    hybrid.addTo(map);
+    const googleTerrain = L.tileLayer('https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
+        maxZoom: 20,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+        attribution: '&copy; Google Maps'
+    });
 
-    // Layer control
+    // Add default layer (Google Hybrid)
+    googleHybrid.addTo(map);
+
+    // Layer control with Google Maps options
     const baseLayers = {
-        "OpenStreetMap": osm,
-        "Satelit": satellite,
-        "Hybrid (Satelit + Jalan)": hybrid
+        "Google Hybrid": googleHybrid,
+        "Google Streets": googleStreets,
+        "Google Satellite": googleSatellite,
+        "Google Terrain": googleTerrain
     };
 
     L.control.layers(baseLayers, null, { position: 'topright' }).addTo(map);
@@ -782,6 +786,12 @@ function updateItemCounters() {
     document.getElementById('odc-count').textContent = counts.odc;
     document.getElementById('odp-count').textContent = counts.odp;
     document.getElementById('onu-count').textContent = counts.onu;
+    
+    // Check empty state
+    const totalItems = counts.server + counts.olt + counts.odc + counts.odp + counts.onu;
+    if (typeof checkEmptyState === 'function') {
+        checkEmptyState();
+    }
 }
 
 // ============================================================================

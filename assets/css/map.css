@@ -561,3 +561,188 @@ svg .connection-offline {
     position: fixed !important;
     z-index: 9999 !important;
 }
+
+/* ============================================================================
+   MAP TOOLS TOOLBAR
+   ============================================================================ */
+
+.map-tools-toolbar {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.toolbar-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.toolbar-divider {
+    height: 1px;
+    background: #e5e7eb;
+    margin: 4px 0;
+}
+
+.map-tool-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: #f3f4f6;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    color: #374151;
+    font-size: 16px;
+}
+
+.map-tool-btn:hover {
+    background: #e5e7eb;
+    transform: scale(1.05);
+}
+
+.map-tool-btn.active {
+    background: #3b82f6;
+    color: white;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+}
+
+.map-tool-btn.danger:hover {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+/* ============================================================================
+   MEASUREMENT LABELS
+   ============================================================================ */
+
+.measurement-label {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.measurement-label.area {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+}
+
+.measurement-popup .leaflet-popup-content-wrapper {
+    background: rgba(59, 130, 246, 0.9);
+    color: white;
+    border-radius: 20px;
+    padding: 2px 8px;
+}
+
+.measurement-popup .leaflet-popup-tip {
+    background: rgba(59, 130, 246, 0.9);
+}
+
+.measurement-popup .leaflet-popup-content {
+    margin: 6px 10px;
+    font-size: 12px;
+}
+
+/* ============================================================================
+   TEXT MARKER LABELS
+   ============================================================================ */
+
+.text-marker-label {
+    background: transparent;
+}
+
+.map-text-label {
+    background: rgba(255, 255, 255, 0.95);
+    color: #1f2937;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    border: 2px solid #6366f1;
+    cursor: move;
+    min-width: 40px;
+    text-align: center;
+}
+
+.map-text-label:hover {
+    border-color: #4f46e5;
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+}
+
+/* ============================================================================
+   COORDINATE DISPLAY
+   ============================================================================ */
+
+.coord-display {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-family: 'Monaco', 'Consolas', monospace;
+    color: #374151;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.coord-display i {
+    color: #3b82f6;
+}
+
+.coord-display:hover {
+    background: rgba(59, 130, 246, 0.1);
+}
+
+/* ============================================================================
+   DISTANCE/AREA LABEL MARKERS
+   ============================================================================ */
+
+.distance-label,
+.area-label {
+    background: transparent;
+    border: none;
+}
+
+/* Crosshair cursor for drawing tools */
+#map.crosshair-cursor {
+    cursor: crosshair !important;
+}
+
+/* Fullscreen adjustments for toolbar */
+#map-container-fullscreen:fullscreen .map-tools-toolbar {
+    top: 70px;
+}
+
+#map-container-fullscreen:-webkit-full-screen .map-tools-toolbar {
+    top: 70px;
+}
+
+#map-container-fullscreen:-moz-full-screen .map-tools-toolbar {
+    top: 70px;
+}
